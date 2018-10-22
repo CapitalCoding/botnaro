@@ -1,0 +1,10 @@
+<div mat-dialog-content >
+  <p>Coloque a Url da notícia</p>
+  <mat-form-field style="width: 100%">
+    <input matInput [(ngModel)]="data.url">
+  </mat-form-field>
+  <p>Obs: Os robôs só gostam de compartilhar do R7, UOL, OGLOBO, TERRA, MSN e IG</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.url" cdkFocusInitial>Adicionar</button>
+</div>

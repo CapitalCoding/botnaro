@@ -1,0 +1,116 @@
+<div class="content">
+        
+        <mat-tab-group mat-stretch-tabs [selectedIndex]="selected"
+        (selectedIndexChange)="onIndexChange($event)">               
+        <mat-tab [label]="tabData[0]">
+            Escolha seu robô
+<!--Carousel Wrapper-->
+<mdb-carousel [isControls]="true" [animation]="'slide'" [interval]="0" style="display:none;">
+    
+    <mdb-carousel-item *ngFor="let robot of robotData; let index=index">
+        <img [src]="robot.img" [alt]="robot.nome">
+        <div class="carousel-caption">
+                <h1>{{robot.nome}}</h1>
+                <button mat-button (click)="chooseAction(robot)">Escolher</button>
+              </div>
+    </mdb-carousel-item>  
+</mdb-carousel>
+            <div class="cards-content" >
+                    <mat-card class="example-card" *ngFor="let robot of robotData; let index=index" >
+                            <mat-card-header>
+                              <div mat-card-avatar class="example-header-image"></div>
+                              <mat-card-title>{{robot.nome}}</mat-card-title>
+                              <mat-card-subtitle>{{robot.desc}}</mat-card-subtitle>
+                            </mat-card-header>
+                            <img #refEl mat-card-image src="{{robot.currentImg}}" (mouseover)="hoverInImage(refEl,index)" (mouseleave)="hoverOutImage(refEl,index)" [alt]="robot.nome">
+                            <mat-card-actions>
+                                <button mat-button (click)="chooseAction(robot)" style="width: 100%;">Escolher</button>
+                            </mat-card-actions>
+                          </mat-card>
+
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="tabData[1]">               
+                <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                      </mat-form-field>
+                      
+                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                            [checked]="selection.hasValue() && isAllSelected()"
+                                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+                            </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)">
+                            </mat-checkbox>
+                            </td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="titulo">
+                          <th mat-header-cell *matHeaderCellDef> Titulo </th>
+                          <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+                        </ng-container>
+                                              <!-- Position Column -->
+                        <ng-container matColumnDef="origem">
+                          <th mat-header-cell *matHeaderCellDef> Site </th>
+                          <td mat-cell *matCellDef="let element"> <a *ngIf="element.noticiaUrl" [href]="element.noticiaUrl" target="_blank">{{element.fakeNewsSites}}</a> </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="enviado">
+                            <th mat-header-cell *matHeaderCellDef> Enviado </th>
+                            <td mat-cell *matCellDef="let element">
+                                <i *ngIf="element.enviado" class="fas fa-check-double color-green"></i>
+                            </td>
+                          </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+                        
+                      </table>
+                      <div style="float: right; padding: 20px;"><i class="fa fa-circle text-danger Blink"></i>&nbsp; LIVE </div>
+              <div *ngIf="selectedRobot">
+                Robô selecionado: {{selectedRobot.nome}}
+
+              </div>
+            <button mat-button style="width : 100%;" (click)="fakeNewsChooseAction()">Compartilhar</button>
+            <button mat-button style="margin-top:5px;"  (click)="openDialog()">Adicionar uma notícia</button>
+        </mat-tab>
+          <mat-tab [label]="tabData[2]" disabled> 
+                <div *ngIf="shareActionUrlName">
+
+                    <a (click)="shareClick()" class="mat-button[_ngcontent-c1] mat-button mat-flat-button mat-icon-button mat-stroked-button radius-width" [href]="getSafeUrl()" data-action="share/whatsapp/share">Compartilhar no Whatsapp</a>                
+                    
+                  </div>
+
+                <div class="selecao" *ngIf="dataSourceSelecao">
+                <table mat-table [dataSource]="dataSourceSelecao" class="mat-elevation-z8">
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="titulo">
+                          <th mat-header-cell *matHeaderCellDef> Titulo </th>
+                          <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+                        </ng-container>
+                                              <!-- Position Column -->
+                        <ng-container matColumnDef="origem">
+                          <th mat-header-cell *matHeaderCellDef> Site </th>
+                          <td mat-cell *matCellDef="let element"> 
+                              <a *ngIf="element.noticiaUrl" [href]="element.noticiaUrl" target="_blank">{{element.fakeNewsSites}}</a> </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSelecao"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsSelecao;"></tr>
+                        
+                      </table>
+                    </div>
+                    <img src="assets/robo/caixa2.jpg" width="300" height="300">
+          </mat-tab>
+        </mat-tab-group>
+        
+</div>

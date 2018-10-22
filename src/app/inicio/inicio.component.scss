@@ -1,0 +1,70 @@
+.content{
+    
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100vh;
+    width: 50vw;
+}
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+  }
+  .flex-vert-center {
+    display: flex;
+    align-items: center;
+  }
+  .radius-width{
+    width: 100%;
+    border-radius: 0;
+  }
+.mat-button{
+  background-color: rgba(0, 0, 255, 0.3);
+}
+/* Structure */
+table {
+  width: 100%;
+}
+.mat-tab-body-content{
+  width: 50vw !important;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.mat-column-select {
+  overflow: initial;
+}
+.Blink {
+  animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;   
+}
+@keyframes blinker {  
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.cards-content{
+  margin-left: auto;
+    margin-right: auto;
+}
+.mat-card-content{
+  display: contents;
+}
+.example-card {
+  max-width: 400px;
+  margin: 15px;
+  float: left;
+  height: 500px;
+  
+}
+.selecao {
+  margin: 15px;
+  animation: selecao 1.5s cubic-bezier(.5, 0, 1, 1) ;   
+}
+@keyframes selecao {  
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
